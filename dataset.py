@@ -1,6 +1,7 @@
 import random
 import string
 import numpy as np
+from pathlib import Path
 
 
 def get_num(a, b, x):
@@ -9,7 +10,6 @@ def get_num(a, b, x):
     input:  a - start inde
             b - end index
             x = random number should be divisible by x
-
     return:
         random number divisible by x
     """
@@ -58,7 +58,6 @@ def write_to_file(length, add_motif_option):
             length: number of rows
             add_motif_option = True/False
     returns:  a .txt file
-
     """
     l = []
     name = ""
@@ -74,9 +73,11 @@ def write_to_file(length, add_motif_option):
         l.append(seq)
         l.append(result)
 
-    with open(name + ".txt", "w") as f:
+    filepath = Path("Data/"+ name + ".txt")
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    with filepath.open("w", encoding ="utf-8") as f:
         for s in l:
             f.write(str(s) + "\n")
 
 
-write_to_file(1000, add_motif_option=False)
+write_to_file(1000, add_motif_option=True)
