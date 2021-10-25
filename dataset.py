@@ -51,7 +51,7 @@ def add_motif(motif):
     return result
 
 
-def write_to_file(length, add_motif_option):
+def write_to_file(length):
     """
     generate dataset
     input:
@@ -61,23 +61,28 @@ def write_to_file(length, add_motif_option):
     """
     l = []
     name = ""
+    motifno = ""
     for i in range(int(length)):
 
-        if add_motif_option == True:
+        if i%2==0:
             name = "motif"
             result = add_motif("ATCAAG")
+            motifno = "1"
         else:
             name = "non_motif"
             result = non_motif_string()
-        seq = ">seq" + str(i + 1)
-        l.append(seq)
-        l.append(result)
+            motifno = "0"
+        seq = "seq" + str(i + 1)
+        l.append("A" + " " + seq + " " + result + " " + motifno)
+        #l.append(seq)
+        #l.append(result)
+        #l.append(motifno)
 
-    filepath = Path("Data/"+ name + ".txt")
+    filepath = Path("Data/datasetpy/"+ name + ".txt")
     filepath.parent.mkdir(parents=True, exist_ok=True)
     with filepath.open("w", encoding ="utf-8") as f:
         for s in l:
-            f.write(str(s) + "\n")
+            f.write( str(s) + "\n")
 
 
-write_to_file(1000, add_motif_option=True)
+write_to_file(2000)
