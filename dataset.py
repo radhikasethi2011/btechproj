@@ -84,5 +84,4 @@ def write_to_file(length):
         for s in l:
             f.write( str(s) + "\n")
 
-
 write_to_file(2000)
