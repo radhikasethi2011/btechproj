@@ -73,7 +73,7 @@ def write_to_file(length):
             result = non_motif_string()
             motifno = "0"
         seq = "seq" + str(i + 1)
-        l.append("A" + " " + seq + " " + result + " " + motifno)
+        l.append("A" + '\t' + seq + '\t' + result + '\t' + motifno)
         #l.append(seq)
         #l.append(result)
         #l.append(motifno)
