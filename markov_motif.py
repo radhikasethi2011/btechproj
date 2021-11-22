@@ -103,6 +103,8 @@ def train():
     #now, testing each sequence and predicting their class using the 2 dictionaries 
     
     for i in range(len(df4)):
+        list1=[]
+    for i in range(len(df4)):
         seq = df4['seq'][i]
         """
         1. score it using ddict3
@@ -116,11 +118,12 @@ def train():
         score_nonmotif = motif_score(dict2_non, dict3_non, seq)
 
         if score_motif>score_nonmotif: 
-            df4['predicted'] = 1
+            list1.append(1)
         else: 
-            df4['predicted'] = 0
-    print(df4['predicted'])
-    
+            list1.append(0)
+    df4['predicted']=list1
+    print(df4)
+
 
 
 
