@@ -1,9 +1,5 @@
 import pandas as pd
-
-colnames=['FoldID', 'EventID', 'start_index','seq', 'Bound'] 
-df = pd.read_csv('Data/markov_files/motif.txt', delimiter = '\t',  names = colnames, header=None)
-df1=df['seq']
-df1.reset_index(drop=True,inplace=True)
+from pandas.core.frame import DataFrame
 
 def combinations_list():
 
@@ -41,7 +37,7 @@ def combinations_list():
     return l
 
 
-def markov_model_motif(): 
+def markov_model_motif(df1): 
     """
     for a second degree motif markov model 
     returns dict2, dict3: count of the appearance of eg: A->C and eg: AC->T occuring
@@ -58,17 +54,17 @@ def markov_model_motif():
     for j in range(0,len(df1),2):
         seq=df1[j]
         #print(seq)
-        print(" ")
-        print(seq)
+        #print(" ")
+        #print(seq)
 
-    for k in range(0,len(seq)-2):
-        if (seq[k:k+2] in dict2.keys()):
-            dict2[seq[k:k+2]]+=1
-    #print(dict2)
+        for k in range(0,len(seq)-2):
+            if (seq[k:k+2] in dict2.keys()):
+                dict2[seq[k:k+2]]+=1
+        #print(dict2)
 
-    for i in range(0,len(seq)):
-        if (seq[i:i+3] in dict3.keys()):
-            dict3[seq[i:i+3]]+=1
+        for i in range(0,len(seq)):
+            if (seq[i:i+3] in dict3.keys()):
+                dict3[seq[i:i+3]]+=1
     #print(dict3)
     #print(" ")
 
@@ -79,11 +75,12 @@ def markov_model_motif():
 
     return dict2, dict3
 
-def motif_score():
+
+def motif_score(dict2, dict3, seq):
     """
     returns the score of th markov model motif 
     """
-    s = 'AAGTAACT' 
+    s = seq 
     import math
     score=1
     for i in range(0,len(s)):
@@ -91,9 +88,61 @@ def motif_score():
             score=score*dict3[s[i:i+3]]
     return (math.log(score))
 
+def train():
+    #df1 = df['seq']
+    seq_list = df1.to_list() #list of sequences 
+    dict2, dict3 = markov_model_motif(df1) #markov model for the motif.txt file
+    #print("####################################################")
+    #print(dict2)
+    #print(dict3)
+    dict2_non, dict3_non = markov_model_motif(df3) #markov model for the non motif file
+    #print("####################################################")
+    #print(dict2_non)
+    #print(dict3_non)
 
-dict2, dict3 = markov_model_motif()
-score = motif_score()
-print(dict2)
-print(dict3)
-print(score)
+    #now, testing each sequence and predicting their class using the 2 dictionaries 
+    
+    for i in range(len(df4)):
+        seq = df4['seq'][i]
+        """
+        1. score it using ddict3
+        2. score it using dict3_non 
+        3. whichever score higher, give value of that class 
+        4. add seq, class to a list, append that list to the df 
+        5. write this file 
+        """
+        
+        score_motif = motif_score(dict2,dict3, seq)
+        score_nonmotif = motif_score(dict2_non, dict3_non, seq)
+
+        if score_motif>score_nonmotif: 
+            df4['predicted'] = 1
+        else: 
+            df4['predicted'] = 0
+    print(df4['predicted'])
+    
+
+
+
+
+    
+
+    
+
+
+colnames=['FoldID', 'EventID', 'start_index','seq', 'Bound'] 
+df = pd.read_csv('Data/markov_files/motif.txt', delimiter = '\t',  names = colnames, header=None)
+colnames2 = ['FoldID', 'EventID','seq', 'Bound']
+df2 = pd.read_csv('Data/markov_files/non-motif.txt', delimiter = '\t',  names = colnames2, header=None)
+df1=df['seq']
+df3 = df2['seq']
+df1.reset_index(drop=True,inplace=True)
+df3.reset_index(drop=True,inplace=True)
+df4 = pd.read_csv('Data/markov_files/mixed.txt', delimiter = '\t',  names = colnames, header=None)
+train()
+
+#dict2, dict3 = markov_model_motif(df1)
+#score = motif_score(dict2, dict3)
+#print(dict2)
+#print(dict3)
+#print(score)
