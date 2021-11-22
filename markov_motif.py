@@ -118,9 +118,9 @@ def train():
         score_nonmotif = motif_score(dict2_non, dict3_non, seq)
 
         if score_motif>score_nonmotif: 
-            list1.append(1)
+            list1.append("1")
         else: 
-            list1.append(0)
+            list1.append("0")
     df4['predicted']=list1
     print(df4)
 
