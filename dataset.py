@@ -62,7 +62,7 @@ def add_motif(motif):
     return result
 
 
-def training_write_file(length):
+def training_write_file(length): #for motif and non motif
     """
     generate dataset
     input:
@@ -100,7 +100,6 @@ def testing_write_file(length):
     generate dataset
     input:
             length: number of rows
-            add_motif_option = True/False
     returns:  a .txt file
     """
     l = []
@@ -128,5 +127,63 @@ def testing_write_file(length):
             f.write( str(s) + "\n")
 
 
-training_write_file(5084)
-testing_write_file(500)
+def training_write_file_only_motif(length): #for motif only
+    """
+    generate dataset
+    input:
+            length: number of rows
+            add_motif_option = True/False
+    returns:  a .txt file
+    """
+    l = []
+    name = ""
+    motifno = ""
+    i=-1
+    result=""
+    for i1 in range(int(length)):
+        name = "motif"
+        result,i = add_motif("ATACGTTACCCG")
+        seq = "seq_" + str(i1 + 1) + "_peak"
+        l.append("A" + '\t' + seq + '\t' + result+ '\t' + '1')
+        #l.append(seq)
+        #l.append(result)
+        #l.append(motifno)
+
+    filepath = Path("Data/datasetpy/"+ name + ".txt")
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    with filepath.open("w", encoding ="utf-8") as f:
+        for s in l:
+            f.write( str(s) + "\n")
+
+def training_write_file_only_non_motif(length): #for non_motif only
+    """
+    generate dataset
+    input:
+            length: number of rows
+            add_motif_option = True/False
+    returns:  a .txt file
+    """
+    l = []
+    name = ""
+    motifno = ""
+    i=-1
+    result=""
+    for i1 in range(int(length)):
+        name = "non-motif"
+        result = non_motif_string()
+        seq = "seq_" + str(i1 + 1) + "_peak"
+        l.append("A" + '\t' + seq + '\t' + result+ '\t' + '0')
+        #l.append(seq)
+        #l.append(result)
+        #l.append(motifno)
+
+    filepath = Path("Data/datasetpy/"+ name + ".txt")
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    with filepath.open("w", encoding ="utf-8") as f:
+        for s in l:
+            f.write( str(s) + "\n")
+
+
+#training_write_file_only_motif(5084)
+#training_write_file(5084)
+#testing_write_file(500)
