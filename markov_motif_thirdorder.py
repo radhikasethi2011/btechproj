@@ -9,7 +9,7 @@ def combinations_list(max_length):
     returns list of combinations of ACGT of all lengths possible 
     """
     letters = ["0", "A", "C", "G", "T"]
-    #max_length = 4
+    # max_length = 4
     b = len(letters) - 1
     #  base to convert to
     n = 0
@@ -158,7 +158,6 @@ acc = accuracy()
 print(acc)
 # dict2, dict3 = markov_model_motif(df1)
 # score = motif_score(dict2, dict3)
-#print(dict2)
-#print(dict3)
+# print(dict2)
+# print(dict3)
 # print(score)
-

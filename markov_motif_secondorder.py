@@ -9,7 +9,7 @@ def combinations_list(max_length):
     returns list of combinations of ACGT of all lengths possible 
     """
     letters = ["0", "A", "C", "G", "T"]
-    #max_length = 4
+    # max_length = 4
     b = len(letters) - 1
     #  base to convert to
     n = 0
@@ -63,13 +63,13 @@ def markov_model_motif(df1):
         for k in range(0, len(seq) - 2):
             if seq[k : k + 2] in dict2.keys():
                 dict2[seq[k : k + 2]] += 1
-        #print(dict2)
+        # print(dict2)
 
         for i in range(0, len(seq)):
             if seq[i : i + 3] in dict3.keys():
                 dict3[seq[i : i + 3]] += 1
-        #print(dict3)
-        #print(" ")
+        # print(dict3)
+        # print(" ")
 
     for i1 in dict3:
         if i1[0:2] in dict2:
@@ -161,4 +161,3 @@ print(acc)
 # print(dict2)
 # print(dict3)
 # print(score)
-
