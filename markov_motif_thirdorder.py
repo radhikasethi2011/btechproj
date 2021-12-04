@@ -140,18 +140,18 @@ def accuracy():
 
 colnames = ["FoldID", "EventID", "start_index", "seq", "Bound"]
 df = pd.read_csv(
-    "Data/markov_files/motif.txt", delimiter="\t", names=colnames, header=None
+    "Data/markov_files_10k/motif.txt", delimiter="\t", names=colnames, header=None
 )
 colnames2 = ["FoldID", "EventID", "seq", "Bound"]
 df2 = pd.read_csv(
-    "Data/markov_files/non-motif.txt", delimiter="\t", names=colnames2, header=None
+    "Data/markov_files_10k/non-motif.txt", delimiter="\t", names=colnames2, header=None
 )
 df1 = df["seq"]
 df3 = df2["seq"]
 df1.reset_index(drop=True, inplace=True)
 df3.reset_index(drop=True, inplace=True)
 df4 = pd.read_csv(
-    "Data/markov_files/mixed.txt", delimiter="\t", names=colnames, header=None
+    "Data/markov_files_10k/mixed.txt", delimiter="\t", names=colnames, header=None
 )
 train()
 acc = accuracy()
