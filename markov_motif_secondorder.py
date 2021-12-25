@@ -122,7 +122,10 @@ def train():
         """
 
         score_motif = motif_score(dict2, dict3, seq)
+        print(seq)
+        print(score_motif)
         score_nonmotif = motif_score(dict2_non, dict3_non, seq)
+        print(score_nonmotif)
 
         if score_motif > score_nonmotif:
             list1.append(1)
