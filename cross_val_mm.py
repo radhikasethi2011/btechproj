@@ -373,6 +373,9 @@ df_mixed.to_csv(str(path) +'/mixed.txt',index=None, sep='\t')
 df_motif_train.to_csv(str(path) +'/motif.txt',index=None, sep='\t')
 df_nonmotif_train.to_csv(str(path) +'/nonmotif.txt',index=None, sep='\t')
 
+
+
+
 dict2, dict3 = {}, {}
 dict2non, dict3non = {}, {}
 
